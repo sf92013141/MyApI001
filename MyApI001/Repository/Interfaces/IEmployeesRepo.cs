@@ -13,7 +13,7 @@ namespace MyApI001.Repository.Interfaces
         public void Update(Employees employee);
 
 
-        public void Delete(Employees employee);
+        public void Delete(int id);
  
     }
 }

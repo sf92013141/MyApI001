@@ -11,6 +11,6 @@ namespace MyApI001.Services.Interfaces
 
         public  Task Update(Employees entity);
 
-        public  Task Delete(Employees entity);
+        public  Task Delete(int id);
     }
 }

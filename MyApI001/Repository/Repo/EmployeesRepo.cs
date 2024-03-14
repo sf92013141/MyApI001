@@ -132,17 +132,111 @@ namespace MyApI001.Repository.Repo
         }
         public void Create(Employees employee)
         {
+          
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var sqlstr = @"INSERT INTO [Employees] 
+            ([LastName], [FirstName], [Title], [TitleOfCourtesy], [BirthDate], 
+            [HireDate], [Address], [City], [Region], [PostalCode], [Country], 
+            [HomePhone], [Extension], [Photo], [Notes], [ReportsTo], [PhotoPath])
+            VALUES 
+            (@LastName, @FirstName, @Title, @TitleOfCourtesy, @BirthDate, 
+            @HireDate, @Address, @City, @Region, @PostalCode, @Country, 
+            @HomePhone, @Extension, @Photo, @Notes, @ReportsTo, @PhotoPath)";
 
+                using (var command = new SqlCommand(sqlstr, connection))
+                {
+                    command.Parameters.AddWithValue("@LastName", employee.LastName);
+                    command.Parameters.AddWithValue("@FirstName", employee.FirstName);
+                    command.Parameters.AddWithValue("@Title", employee.Title ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@TitleOfCourtesy", employee.TitleOfCourtesy ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@BirthDate", employee.BirthDate ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@HireDate", employee.HireDate ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Address", employee.Address ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@City", employee.City ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Region", employee.Region ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@PostalCode", employee.PostalCode ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Country", employee.Country ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@HomePhone", employee.HomePhone ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Extension", employee.Extension ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Photo", employee.Photo ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Notes", employee.Notes ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@ReportsTo", employee.ReportsTo ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@PhotoPath", employee.PhotoPath ?? (object)DBNull.Value);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
         }
+
 
         public void Update(Employees employee)
         {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var sqlstr = @"UPDATE [Employees] SET 
+            [LastName] = @LastName, 
+            [FirstName] = @FirstName, 
+            [Title] = @Title, 
+            [TitleOfCourtesy] = @TitleOfCourtesy, 
+            [BirthDate] = @BirthDate, 
+            [HireDate] = @HireDate, 
+            [Address] = @Address, 
+            [City] = @City, 
+            [Region] = @Region, 
+            [PostalCode] = @PostalCode, 
+            [Country] = @Country, 
+            [HomePhone] = @HomePhone, 
+            [Extension] = @Extension, 
+            [Photo] = @Photo, 
+            [Notes] = @Notes, 
+            [ReportsTo] = @ReportsTo, 
+            [PhotoPath] = @PhotoPath
+            WHERE [EmployeeID] = @EmployeeID";
 
+                using (var command = new SqlCommand(sqlstr, connection))
+                {
+                    command.Parameters.AddWithValue("@EmployeeID", employee.EmployeeID);
+                    command.Parameters.AddWithValue("@LastName", employee.LastName ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@FirstName", employee.FirstName ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Title", employee.Title ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@TitleOfCourtesy", employee.TitleOfCourtesy ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@BirthDate", employee.BirthDate ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@HireDate", employee.HireDate ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Address", employee.Address ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@City", employee.City ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Region", employee.Region ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@PostalCode", employee.PostalCode ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Country", employee.Country ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@HomePhone", employee.HomePhone ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Extension", employee.Extension ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Photo", (employee.Photo != null && employee.Photo.Length > 0) ? (object)employee.Photo : DBNull.Value);
+                    command.Parameters.AddWithValue("@Notes", employee.Notes ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@ReportsTo", employee.ReportsTo ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@PhotoPath", employee.PhotoPath ?? (object)DBNull.Value);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
-        public void Delete(Employees employee)
+        public void Delete(int id)
         {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var sqlstr = @"DELETE FROM [Employees] WHERE [EmployeeID] = @EmployeeID";
 
+                using (var command = new SqlCommand(sqlstr, connection))
+                {
+                    command.Parameters.AddWithValue("@EmployeeID", id);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
         }
+
     }
 }

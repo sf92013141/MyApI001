@@ -60,21 +60,48 @@ namespace MyApI001.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> Post()
+        public async Task<IActionResult> Post(Employees employees)
         {
-            return Ok();
+            try
+            {
+                await _employeeService.Create(employees);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(500, "系統異常，請通知相關人員");
+            }
         }
 
         [HttpPut]
 
-        public async Task<IActionResult> Put()
+        public async Task<IActionResult> Put(Employees employees)
         {
-            return Ok();
+            try
+            {
+                await _employeeService.Create(employees);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(500, "系統異常，請通知相關人員");
+            }
         }
         [HttpDelete]
-        public async Task<IActionResult> Delete()
+        public async Task<IActionResult> Delete(int id)
         {
-            return Ok();
+            try
+            {
+                await _employeeService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(500, "系統異常，請通知相關人員");
+            }
         }
     }
 }

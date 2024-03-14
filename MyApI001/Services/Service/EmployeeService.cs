@@ -30,9 +30,9 @@ namespace MyApI001.Services.Service
             _employeeRepo.Update(entity);
         }
 
-        public async Task Delete(Employees entity)
+        public async Task Delete(int id)
         {
-            _employeeRepo.Delete(entity);
+            _employeeRepo.Delete(id);
         }
     }
 }
